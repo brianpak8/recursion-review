@@ -4,6 +4,9 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
+  if (obj === undefined) {
+    return '{}';
+  }
   if (obj === null) {
     return 'null';
   }
@@ -20,7 +23,19 @@ var stringifyJSON = function(obj) {
     return `[${mapped}]`;
   }
   
-  
+  if (obj.constructor === Object) {
+    // if (obj.hasOwnProperty('functions') || obj.hasOwnProperty('undefined')) {
+    //   return '{}';
+    // }
+    var results = [];
+    for (var key in obj) {
+      if (obj[key] === undefined || typeof obj[key] === 'function') {
+        continue;
+      }
+      results.push([stringifyJSON(key) + ':' + stringifyJSON(obj[key])]);
+    }
+    return '{' + results.join(',') + '}';
+  }
   
   
   return obj.toString();
