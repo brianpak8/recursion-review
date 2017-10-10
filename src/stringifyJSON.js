@@ -11,6 +11,19 @@ var stringifyJSON = function(obj) {
   if (typeof obj === 'string') {
     return `"${obj}"`;
   }
-  // your code goes here
+  if (Array.isArray(obj)) {
+    //itterate array
+    //at the end return `[ ${strJson(i)} ]`
+    var holder = '[';
+    for ( var i = 0; i < obj.length; i++) {
+      if (i === 0) {
+        holder += stringifyJSON(obj[i]);
+      } else {
+        holder += ',' + stringifyJSON(obj[i]);
+      }
+      
+    }
+    return holder += ']';
+  }
   return obj.toString();
 };
