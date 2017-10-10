@@ -7,6 +7,10 @@ var stringifyJSON = function(obj) {
   if (obj === null) {
     return 'null';
   }
-  return obj.toString();
+  
+  if (typeof obj === 'string') {
+    return `"${obj}"`;
+  }
   // your code goes here
+  return obj.toString();
 };
